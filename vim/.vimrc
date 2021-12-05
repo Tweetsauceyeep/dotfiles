@@ -258,7 +258,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 set background=dark  
 colorscheme molokai
 
-"======Shit for nerdtree====================================================
+"======stuff for nerdtree====================================================
 map <C-n> :NERDTreeToggle %<CR>
 let NERDTreeShowBookmarks = 1   " Show the bookmarks table
 let NERDTreeShowHidden = 1      " Show hidden files
