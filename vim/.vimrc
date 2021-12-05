@@ -86,6 +86,7 @@ Plug 'liuchengxu/vim-clap' " fuzzy finder with popup
 " vim markdown preview 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine' "  indent line stuff
 
 "{{ Autopairs
