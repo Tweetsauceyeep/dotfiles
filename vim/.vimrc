@@ -3,8 +3,7 @@
 " you could run into issues when saving your files. 
 " Some editors have a "safe write" feature that can potentially 
 " interfere with recompilation. "https://webpack.js.org/guides/development/"
-
-
+" test if symlink works bro - IT WORK DOE
 set backupcopy=yes "for vim
 
 set encoding=UTF-8
