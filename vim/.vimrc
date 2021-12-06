@@ -1,3 +1,7 @@
+
+"autocmd BufWritePre *.js Prettier
+
+
 "===================Vim Settings==============
 " for WEBPACK When using automatic compilation of your code, 
 " you could run into issues when saving your files. 
@@ -75,16 +79,14 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itchyny/lightline.vim'
 Plug 'sheerun/vim-polyglot'   "pr sure this is syntax highlighting
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax (from ben awad)
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'mattn/emmet-vim' 
 Plug 'justinmk/vim-sneak' "missing movement in vim (use s{char}{char} to look for stuff)
 "Plug 'tpope/vim-surround' " shortcuts to easily change/delete/add surroundings in pairs
 Plug 'preservim/nerdtree'
 "Plug 'ryanoasis/vim-devicons'"
 Plug 'mhinz/vim-startify'
-Plug 'liuchengxu/vim-clap' " fuzzy finder with popup
-" vim markdown preview 
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine' "  indent line stuff
