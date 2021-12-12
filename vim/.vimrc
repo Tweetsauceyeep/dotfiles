@@ -3,11 +3,14 @@
 
 
 "===================Vim Settings==============
-" for WEBPACK When using automatic compilation of your code, 
-" you could run into issues when saving your files. 
-" Some editors have a "safe write" feature that can potentially 
+" for WEBPACK When using automatic compilation of your code,
+" you could run into issues when saving your files.
+" Some editors have a "safe write" feature that can potentially
 " interfere with recompilation. "https://webpack.js.org/guides/development/"
 " test if symlink works bro - IT WORK DOE
+let mapleader = " "
+nnoremap <leader>r :w<CR>: !node %<CR>
+
 set backupcopy=yes "for vim
 
 set encoding=UTF-8
@@ -41,7 +44,7 @@ syntax on  " Enable syntax highlighting
 
 " How many columns of whitespace a \t is worth
 " How many columns of whitespace a level of indentation is worth
-set shiftwidth=2 
+set shiftwidth=2
 " Use spaces when tabbing
 set expandtab
 set incsearch  " Enable incremental search
@@ -58,7 +61,7 @@ let &t_SR = "\<Esc>[3 q"
 let &t_SI = "\<Esc>[5 q"
 
 ""  1 -> blinking block
-"  2 -> solid block 
+"  2 -> solid block
 "  3 -> blinking underscore
 "  4 -> solid underscore
 "  5 -> blinking vertical bar
@@ -80,7 +83,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'sheerun/vim-polyglot'   "pr sure this is syntax highlighting
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax (from ben awad)
 "Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'mattn/emmet-vim' 
+Plug 'mattn/emmet-vim'
 Plug 'justinmk/vim-sneak' "missing movement in vim (use s{char}{char} to look for stuff)
 "Plug 'tpope/vim-surround' " shortcuts to easily change/delete/add surroundings in pairs
 Plug 'preservim/nerdtree'
@@ -90,6 +93,10 @@ Plug 'mhinz/vim-startify'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine' "  indent line stuff
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'voldikss/vim-floaterm' "terminal in popup window
+nmap <silent> fk :FloatermNew<CR>
+
 
 "{{ Autopairs
 " ---> closing XML tags <---
@@ -124,7 +131,7 @@ Plug 'morhetz/gruvbox'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'embark-theme/vim', { 'as': 'embark' } " ayo this is actually really nice
 Plug 'pineapplegiant/spaceduck' "literally duck this is so cool
-Plug 'connorholyday/vim-snazzy' "looks clean ash 
+Plug 'connorholyday/vim-snazzy' "looks clean ash
 Plug 'edersonferreira/dalton-vim'
 Plug 'ciaranm/inkpot'
 Plug 'aonemd/kuroi.vim'
@@ -138,8 +145,8 @@ call plug#end()
 
 
 "===========================
-          
-          
+
+
 let g:indentLine_char = '┆'
 let g:indentLine_leadingSpaceChar = '·'
 
@@ -188,8 +195,8 @@ let g:mkdp_auto_close = 1
 set laststatus=2
 set noshowmode " removes insert word  below status bar
 " config for like the contents of the stauts bar
-let g:lightline = {   
-      \ 'colorscheme': 'OldHope', 
+let g:lightline = {
+      \ 'colorscheme': 'OldHope',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             ['gitbranch', 'readonly', 'filename', 'textonbar' ] ],
@@ -204,7 +211,7 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
- 
+
 "===========================================================================
 
 "coc extensions
@@ -212,9 +219,9 @@ let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-pairs',
   \ 'coc-tsserver',
-  \ 'coc-eslint', 
-  \ 'coc-prettier', 
-  \ 'coc-json', 
+  \ 'coc-eslint',
+  \ 'coc-prettier',
+  \ 'coc-json',
   \ 'coc-css',
   \ 'coc-html',
   \]
@@ -258,7 +265,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 "===========================================================================
 
-set background=dark  
+set background=dark
 colorscheme molokai
 
 "======stuff for nerdtree====================================================
@@ -273,11 +280,11 @@ let g:NERDTreeGitStatusWithFlags = 1
 let g:NERDTreeIgnore = ['^node_modules$']
 "autocmd VimEnter * NERDTree  "open nerdtree on start
 
-let g:NERDTreeGitStatusWithFlags = 1 
+let g:NERDTreeGitStatusWithFlags = 1
 
 " sync open file with NERDTree
 " " Check if NERDTree is open or active
-"function! IsNERDTreeOpen()        
+"function! IsNERDTreeOpen()
 "  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
 "endfunction
 "
