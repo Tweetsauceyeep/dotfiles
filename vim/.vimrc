@@ -10,6 +10,7 @@
 " test if symlink works bro - IT WORK DOE
 let mapleader = " "
 nnoremap <leader>r :w<CR>: !node %<CR>
+" Code above maps <space>r to save file and run code in crtl z mode
 
 set backupcopy=yes "for vim
 
@@ -139,6 +140,7 @@ Plug 'liuchengxu/space-vim-dark'
 Plug 'cormacrelf/vim-colors-github' "github styled colorscheme
 Plug 'tomasr/molokai'
 Plug 'tomasiser/vim-code-dark'
+Plug 'ldelossa/vimdark'
 
 call plug#end()
 
