@@ -1,7 +1,6 @@
 
 "autocmd BufWritePre *.js Prettier
 
-
 "===================Vim Settings==============
 " for WEBPACK When using automatic compilation of your code,
 " you could run into issues when saving your files.
@@ -93,10 +92,10 @@ Plug 'mhinz/vim-startify'
 "Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'Yggdroot/indentLine' "  indent line stuff
+"Plug 'Yggdroot/indentLine' "  indent line stuff
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'voldikss/vim-floaterm' "terminal in popup window
-nmap <silent> fk :FloatermNew<CR>
+nmap <silent> fk :ter<CR>
 
 
 "{{ Autopairs
