@@ -7,9 +7,17 @@
 " Some editors have a "safe write" feature that can potentially
 " interfere with recompilation. "https://webpack.js.org/guides/development/"
 " test if symlink works bro - IT WORK DOE
-let mapleader = " "
+
+let mapleader = " " "leader is space bar
 nnoremap <leader>r :w<CR>: !node %<CR>
 " Code above maps <space>r to save file and run code in crtl z mode
+
+
+map <leader>h :wincmd h<CR>
+map <leader>j :wincmd j<CR>
+map <leader>k :wincmd k<CR>
+map <leader>l :wincmd l<CR>
+
 
 set backupcopy=yes "for vim
 
@@ -54,6 +62,8 @@ set splitbelow         " Always split below
 set mouse=a            " Enable mouse drag on window splits
 set nowrap
 
+
+nmap <silent> fk :ter<CR>
 "CURSOR This will give you a blinking block in normal mode, a blinking vertical bar in insert mode, and a blinking underscore in replace mode.
 
 let &t_EI = "\<Esc>[1 q"
@@ -66,7 +76,6 @@ let &t_SI = "\<Esc>[5 q"
 "  4 -> solid underscore
 "  5 -> blinking vertical bar
 "  6 -> solid vertical bar
-
 
 
 "Install vim-plug if we don't already have it
@@ -95,8 +104,8 @@ Plug 'junegunn/fzf.vim'
 "Plug 'Yggdroot/indentLine' "  indent line stuff
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'voldikss/vim-floaterm' "terminal in popup window
-nmap <silent> fk :ter<CR>
-
+Plug 'davidhalter/jedi-vim' "Vim keybinds for jedi python autocomplete library
+Plug 'psliwka/vim-smoothie' "Smooth Scrolling in vim
 
 "{{ Autopairs
 " ---> closing XML tags <---
@@ -227,6 +236,7 @@ let g:coc_global_extensions = [
   \ 'coc-html',
   \]
 
+
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -314,12 +324,14 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
+"if (empty($TMUX))
+"  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+"  if (has("termguicolors"))
+"  endif
+"endif
 "=========================================================================
+
+" terminal 256 colors
+set termguicolors
 
 
