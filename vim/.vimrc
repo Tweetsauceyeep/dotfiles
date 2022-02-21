@@ -1,4 +1,5 @@
 
+
 "autocmd BufWritePre *.js Prettier
 
 "===================Vim Settings==============
@@ -7,6 +8,16 @@
 " Some editors have a "safe write" feature that can potentially
 " interfere with recompilation. "https://webpack.js.org/guides/development/"
 " test if symlink works bro - IT WORK DOE
+
+
+"mac copy pasting test
+vnoremap \y y:call system("pbcopy", getreg("\""))<CR>
+nnoremap \p :call setreg("\"", system("pbpaste"))<CR>p
+
+noremap YY "+y<CR>
+noremap P "+gP<CR>
+noremap XX "+x<CR>
+
 
 let mapleader = " " "leader is space bar
 nnoremap <leader>r :w<CR>: !node %<CR>
@@ -103,9 +114,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 "Plug 'Yggdroot/indentLine' "  indent line stuff
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'voldikss/vim-floaterm' "terminal in popup window
 Plug 'davidhalter/jedi-vim' "Vim keybinds for jedi python autocomplete library
-Plug 'psliwka/vim-smoothie' "Smooth Scrolling in vim
 
 "{{ Autopairs
 " ---> closing XML tags <---
@@ -149,6 +158,10 @@ Plug 'cormacrelf/vim-colors-github' "github styled colorscheme
 Plug 'tomasr/molokai'
 Plug 'tomasiser/vim-code-dark'
 Plug 'ldelossa/vimdark'
+Plug 'AhmedAbdulrahman/vim-aylin'
+Plug 'andreasvc/vim-256noir' "minimal colorscheme
+Plug 'davidosomething/vim-colors-meh'
+Plug 'nikolvs/vim-sunbather'
 
 call plug#end()
 
@@ -235,8 +248,10 @@ let g:coc_global_extensions = [
   \ 'coc-css',
   \ 'coc-html',
   \ 'coc-python',
+  \ 'coc-explorer',
   \]
 
+nmap <leader>e <Cmd>CocCommand explorer<CR>
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -278,7 +293,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 "===========================================================================
 
 set background=dark
-colorscheme molokai
+colorscheme sunbather 
 
 "======stuff for nerdtree====================================================
 map <C-n> :NERDTreeToggle %<CR>
