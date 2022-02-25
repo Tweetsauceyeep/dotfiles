@@ -166,7 +166,7 @@ call plug#end()
 
 "CtrlP stuff
 
-let g:ctrlp_map = 'fj'
+let g:ctrlp_map = '<C-p>'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 "===========================
@@ -195,7 +195,7 @@ let g:fzf_colors =
 " Tell FZF to use RG - so we can skip .gitignore files even if not using
 " :GitFiles search
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden -g "!{node_modules,.git}" '
-nmap <silent> <c-p> :Files<CR>
+nmap <silent> fj :Files<CR>
 let g:fzf_layout = { 'down': '10' }
 
 
