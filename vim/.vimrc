@@ -1,5 +1,3 @@
-
-
 "autocmd BufWritePre *.js Prettier
 
 "===================Vim Settings==============
@@ -15,7 +13,7 @@ vnoremap \y y:call system("pbcopy", getreg("\""))<CR>
 nnoremap \p :call setreg("\"", system("pbpaste"))<CR>p
 
 noremap YY "+y<CR>
-noremap P "+gP<CR>
+noremap LP "+gP<CR>
 noremap XX "+x<CR>
 
 
@@ -57,7 +55,7 @@ set cursorlineopt=number
 autocmd ColorScheme * highlight CursorLineNr cterm=bold term=bold gui=bold
 
 filetype plugin indent on
-set relativenumber "relative nums
+"set relativenumber "relative nums
 set number     " Enable line numbers
 syntax on  " Enable syntax highlighting
 
@@ -68,7 +66,7 @@ set shiftwidth=2
 set expandtab
 set incsearch  " Enable incremental search
 set hlsearch   " Enable highlight search
-set termwinsize=3x0   " Set terminal size
+"set termwinsize=3x0   " Set terminal size
 set splitbelow         " Always split below
 set mouse=a            " Enable mouse drag on window splits
 set nowrap
@@ -115,6 +113,7 @@ Plug 'junegunn/fzf.vim'
 "Plug 'Yggdroot/indentLine' "  indent line stuff
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'davidhalter/jedi-vim' "Vim keybinds for jedi python autocomplete library
+Plug 'ctrlpvim/ctrlp.vim'
 
 "{{ Autopairs
 " ---> closing XML tags <---
@@ -165,8 +164,11 @@ Plug 'nikolvs/vim-sunbather'
 
 call plug#end()
 
+"CtrlP stuff
 
-
+let g:ctrlp_map = 'fj'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 "===========================
 
 
@@ -191,14 +193,11 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 " Tell FZF to use RG - so we can skip .gitignore files even if not using
-"
 " :GitFiles search
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden -g "!{node_modules,.git}" '
-nmap <silent> fj :FZF<CR>
+nmap <silent> <c-p> :Files<CR>
+let g:fzf_layout = { 'down': '10' }
 
-""=====================VIM Clap Config =================
-let g:clap_layout = { 'relative': 'editor' }
-let g:clap_open_preview = 'never'
 
 " open startify on entry
  autocmd VimEnter *
@@ -219,10 +218,10 @@ set laststatus=2
 set noshowmode " removes insert word  below status bar
 " config for like the contents of the stauts bar
 let g:lightline = {
-      \ 'colorscheme': 'OldHope',
+      \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             ['gitbranch', 'readonly', 'filename', 'textonbar' ] ],
+      \             ['gitbranch', 'readonly', 'filename', 'textonbar','%:p:h' ] ],
       \    'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],
       \              [ 'fileformat', 'filetype'] ]
@@ -231,10 +230,33 @@ let g:lightline = {
       \   'textonbar': 'B) ඞ  '
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
+      \   'gitbranch': 'FugitiveHead',
       \ },
-      \ }
+        \ 'mode_map': {
+        \ 'n' : 'N',
+        \ 'i' : 'I',
+        \ 'R' : 'R',
+        \ 'v' : 'V',
+        \ 'V' : 'VL',
+        \ "\<C-v>": 'VB',
+        \ 'c' : 'C',
+        \ 's' : 'S',
+        \ 'S' : 'SL',
+        \ "\<C-s>": 'SB',
+        \ 't': 'T',
+        \ },
+      \  }
 
+function! LightlineFilename()
+  return &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
+        \ &filetype ==# 'unite' ? unite#get_status_string() :
+        \ &filetype ==# 'vimshell' ? vimshell#get_status_string() :
+        \ expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+endfunction
+
+let g:unite_force_overwrite_statusline = 0
+let g:vimfiler_force_overwrite_statusline = 0
+let g:vimshell_force_overwrite_statusline = 0
 "===========================================================================
 
 "coc extensions
