@@ -6,9 +6,10 @@
 " Some editors have a "safe write" feature that can potentially
 " interfere with recompilation. "https://webpack.js.org/guides/development/"
 " test if symlink works bro - IT WORK DOE
+set nocompatible
 
-
-"mac copy pasting test
+" Default Vim config + remaps
+"mac copy pasting
 vnoremap \y y:call system("pbcopy", getreg("\""))<CR>
 nnoremap \p :call setreg("\"", system("pbpaste"))<CR>p
 
@@ -17,6 +18,8 @@ noremap LP "+gP<CR>
 noremap XX "+x<CR>
 
 
+" removes insert word  below status bar
+set noshowmode
 let mapleader = " " "leader is space bar
 nnoremap <leader>r :w<CR>: !node %<CR>
 " Code above maps <space>r to save file and run code in crtl z mode
@@ -32,7 +35,6 @@ set backupcopy=yes "for vim
 
 set encoding=UTF-8
 nnoremap <F2> :NERDTree<CR>
-set nocompatible
 filetype off
 set showmatch "bracket pair highlighting
 
@@ -45,7 +47,8 @@ set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=300
+" supposed to be 300
+set updatetime=30
 
 " highlights current number (pls delete iff no worky )
 set cursorline
@@ -112,8 +115,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 "Plug 'Yggdroot/indentLine' "  indent line stuff
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'davidhalter/jedi-vim' "Vim keybinds for jedi python autocomplete library
-Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'ctrlpvim/ctrlp.vim'
+Plug 'vimwiki/vimwiki'
 
 "{{ Autopairs
 " ---> closing XML tags <---
@@ -129,10 +132,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
 " ---> git changes on the gutter <---
 Plug 'airblade/vim-gitgutter'
-" ---> nerdtree git changes <---
-Plug 'Xuyuanp/nerdtree-git-plugin'
-"}}
-
 "{{ TMux - Vim integration
 Plug 'christoomey/vim-tmux-navigator'
 "}}
@@ -141,8 +140,6 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
   \ 'branch': 'release/0.x'
   \ }
-
-
 "Themes for vim
 Plug 'morhetz/gruvbox'
 Plug 'drewtempelmeyer/palenight.vim'
@@ -164,8 +161,7 @@ Plug 'nikolvs/vim-sunbather'
 
 call plug#end()
 
-"CtrlP stuff
-
+"CtrlP config
 let g:ctrlp_map = '<C-p>'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
@@ -175,7 +171,7 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 let g:indentLine_char = '┆'
 let g:indentLine_leadingSpaceChar = '·'
 
-""VIM FZF config: fzf =====================================
+" FZF config: fzf 
 " Use same colors for FZF as current theme
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -192,10 +188,26 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+" VIMWIKI
+let g:vimwiki_list = [{'path': '~/obsidian-notes/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+
+function! VimwikiLinkHandler(link)
+    if a:link =~ '\.\(pdf\|jpg\|jpeg\|png\|gif\)$'
+        call vimwiki#base#open_link(':e ', 'file:'.a:link)
+        return 1
+    endif
+    return 0
+endfunction
+
+
 " Tell FZF to use RG - so we can skip .gitignore files even if not using
 " :GitFiles search
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden -g "!{node_modules,.git}" '
 nmap <silent> fj :Files<CR>
+nmap <silent> <leader>f :Rg<CR>
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+"With the above, every time we invoke Rg, FZF + ripgrep will not consider filename as a match in Vim.
 let g:fzf_layout = { 'down': '10' }
 
 
@@ -203,22 +215,16 @@ let g:fzf_layout = { 'down': '10' }
  autocmd VimEnter *
                  \   if !argc()
                  \ |   Startify
-                 "\ |   NERDTree
                  \ |   wincmd w
                  \ | endif
 
 
 "==========================================================================
-" vim markdown preview config
-let g:mkdp_auto_start = 1
-let g:mkdp_auto_close = 1
-
 "lightline CONFIG
 set laststatus=2
-set noshowmode " removes insert word  below status bar
 " config for like the contents of the stauts bar
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'seoul256',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             ['gitbranch', 'readonly', 'filename', 'textonbar','%:p:h' ] ],
@@ -227,7 +233,7 @@ let g:lightline = {
       \              [ 'fileformat', 'filetype'] ]
       \ },
       \ 'component': {
-      \   'textonbar': 'B) ඞ  '
+      \   'textonbar': 'Amongus'
       \ },
       \ 'component_function': {
       \   'gitbranch': 'FugitiveHead',
@@ -293,8 +299,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent>expr>< <cr pumvisible() ? coc#_select_confirm()
   \: "\"C-g<u\>CR<\>c-r<=coc#on_enter()\<>CR"">>"
-
-
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -304,10 +308,8 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
-
 " Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
@@ -315,61 +317,15 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 "===========================================================================
 
 set background=dark
-colorscheme sunbather 
-
-"======stuff for nerdtree====================================================
-map <C-n> :NERDTreeToggle %<CR>
-let NERDTreeShowBookmarks = 1   " Show the bookmarks table
-let NERDTreeShowHidden = 1      " Show hidden files
-let NERDTreeShowLineNumbers = 0 " Hide line numbers
-let NERDTreeMinimalMenu = 1     " Use the minimal menu (m)
-let NERDTreeWinPos = "left"     " Panel opens on the left side
-let NERDTreeWinSize = 23        " Set panel width to 31 columns
-let g:NERDTreeGitStatusWithFlags = 1
-let g:NERDTreeIgnore = ['^node_modules$']
-"autocmd VimEnter * NERDTree  "open nerdtree on start
-
-let g:NERDTreeGitStatusWithFlags = 1
-
-" sync open file with NERDTree
-" " Check if NERDTree is open or active
-"function! IsNERDTreeOpen()
-"  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
-"endfunction
-"
-"" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
-"" file, and we're not in vimdiff
-"function! SyncTree()
-"  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
-"    NERDTreeFind
-"    wincmd p
-"  endif
-"endfunction
-"
-"" Highlight currently open buffer in NERDTree
-"autocmd BufEnter * call SyncTree()
-
-" Open the existing NERDTree on each new tab.
-"autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
-
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-
-
-"==========================================================================
-
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-"if (empty($TMUX))
-"  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-"  if (has("termguicolors"))
-"  endif
-"endif
-"=========================================================================
+colorscheme rexim-gruber-vim
+" code belows set default for git gutter colors
+highlight GitGutterAdd ctermfg=green
+highlight GitGutterChange ctermfg=yellow
+highlight GitGutterDelete ctermfg=red
+highlight GitGutterChangeDelete ctermfg=yellow
 
 " terminal 256 colors
 set termguicolors
+
 
 
