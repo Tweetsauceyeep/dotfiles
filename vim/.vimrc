@@ -7,23 +7,25 @@
 " interfere with recompilation. "https://webpack.js.org/guides/development/"
 " test if symlink works bro - IT WORK DOE
 set nocompatible
+" removes insert word  below status bar
+set noshowmode
+
+set backspace=indent,eol,start  " more powerful backspacing
 
 " Default Vim config + remaps
 "mac copy pasting
 vnoremap \y y:call system("pbcopy", getreg("\""))<CR>
 nnoremap \p :call setreg("\"", system("pbpaste"))<CR>p
-
+verbose imap <Tab> "hopefully this makes tabbing work in vimwiki
 noremap YY "+y<CR>
 noremap LP "+gP<CR>
 noremap XX "+x<CR>
-
-
-" removes insert word  below status bar
-set noshowmode
+inoremap jk <esc> 
 let mapleader = " " "leader is space bar
 nnoremap <leader>r :w<CR>: !node %<CR>
-" Code above maps <space>r to save file and run code in crtl z mode
-
+nnoremap <F2> :NERDTree<CR>
+" Prettier remap
+map <leader>p :Prettier<CR> 
 
 map <leader>h :wincmd h<CR>
 map <leader>j :wincmd j<CR>
@@ -34,7 +36,6 @@ map <leader>l :wincmd l<CR>
 set backupcopy=yes "for vim
 
 set encoding=UTF-8
-nnoremap <F2> :NERDTree<CR>
 filetype off
 set showmatch "bracket pair highlighting
 
@@ -53,7 +54,6 @@ set updatetime=30
 " highlights current number (pls delete iff no worky )
 set cursorline
 set cursorlineopt=number
-
 " When i commented this line out, matching brackets worked na idk why
 autocmd ColorScheme * highlight CursorLineNr cterm=bold term=bold gui=bold
 
@@ -65,6 +65,7 @@ syntax on  " Enable syntax highlighting
 " How many columns of whitespace a \t is worth
 " How many columns of whitespace a level of indentation is worth
 set shiftwidth=2
+set tabstop=2
 " Use spaces when tabbing
 set expandtab
 set incsearch  " Enable incremental search
@@ -76,6 +77,7 @@ set nowrap
 
 
 nmap <silent> fk :ter<CR>
+
 "CURSOR This will give you a blinking block in normal mode, a blinking vertical bar in insert mode, and a blinking underscore in replace mode.
 
 let &t_EI = "\<Esc>[1 q"
@@ -96,18 +98,18 @@ let &t_SI = "\<Esc>[5 q"
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
-
+""""
 call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itchyny/lightline.vim'
-Plug 'sheerun/vim-polyglot'   "pr sure this is syntax highlighting
-Plug 'HerringtonDarkholme/yats.vim' " TS Syntax (from ben awad)
+"Plug 'sheerun/vim-polyglot'   "pr sure this is syntax highlighting
+"Plug 'HerringtonDarkholme/yats.vim' " TS Syntax (from ben awad)
 "Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'mattn/emmet-vim'
+"Plug 'mattn/emmet-vim'
 Plug 'justinmk/vim-sneak' "missing movement in vim (use s{char}{char} to look for stuff)
 "Plug 'tpope/vim-surround' " shortcuts to easily change/delete/add surroundings in pairs
-Plug 'preservim/nerdtree'
+"Plug 'preservim/nerdtree'
 "Plug 'ryanoasis/vim-devicons'"
 Plug 'mhinz/vim-startify'
 "Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -117,7 +119,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'ntpeters/vim-better-whitespace'
 "Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vimwiki/vimwiki'
-
+" Python autocomplete
+Plug 'davidhalter/jedi-vim'
 "{{ Autopairs
 " ---> closing XML tags <---
 Plug 'alvan/vim-closetag'
@@ -126,7 +129,6 @@ Plug 'alvan/vim-closetag'
 " ---> closing braces and brackets <---
 Plug 'jiangmiao/auto-pairs'
 "}}
-
 "{{ Git integration
 " ---> git commands within vim <---
 Plug 'tpope/vim-fugitive'
@@ -142,22 +144,22 @@ Plug 'prettier/vim-prettier', {
   \ }
 "Themes for vim
 Plug 'morhetz/gruvbox'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'embark-theme/vim', { 'as': 'embark' } " ayo this is actually really nice
-Plug 'pineapplegiant/spaceduck' "literally duck this is so cool
-Plug 'connorholyday/vim-snazzy' "looks clean ash
+"Plug 'drewtempelmeyer/palenight.vim'
+"Plug 'embark-theme/vim', { 'as': 'embark' } " ayo this is actually really nice
+"#Plug 'pineapplegiant/spaceduck' "literally duck this is so cool
+"Plug 'connorholyday/vim-snazzy' "looks clean ash
 Plug 'edersonferreira/dalton-vim'
-Plug 'ciaranm/inkpot'
-Plug 'aonemd/kuroi.vim'
-Plug 'liuchengxu/space-vim-dark'
-Plug 'cormacrelf/vim-colors-github' "github styled colorscheme
+"Plug 'ciaranm/inkpot'
+"Plug 'aonemd/kuroi.vim'
+"Plug 'liuchengxu/space-vim-dark'
+"Plug 'cormacrelf/vim-colors-github' "github styled colorscheme
 Plug 'tomasr/molokai'
-Plug 'tomasiser/vim-code-dark'
-Plug 'ldelossa/vimdark'
-Plug 'AhmedAbdulrahman/vim-aylin'
+"Plug 'tomasiser/vim-code-dark'
+"Plug 'ldelossa/vimdark'
+"Plug 'AhmedAbdulrahman/vim-aylin'
 Plug 'andreasvc/vim-256noir' "minimal colorscheme
-Plug 'davidosomething/vim-colors-meh'
-Plug 'nikolvs/vim-sunbather'
+"Plug 'davidosomething/vim-colors-meh'
+"Plug 'nikolvs/vim-sunbather'
 
 call plug#end()
 
@@ -312,10 +314,7 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-
 "===========================================================================
-
 set background=dark
 colorscheme rexim-gruber-vim
 " code belows set default for git gutter colors
@@ -326,6 +325,3 @@ highlight GitGutterChangeDelete ctermfg=yellow
 
 " terminal 256 colors
 set termguicolors
-
-
-
