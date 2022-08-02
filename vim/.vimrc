@@ -120,7 +120,7 @@ Plug 'ntpeters/vim-better-whitespace'
 "Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vimwiki/vimwiki'
 " Python autocomplete
-Plug 'davidhalter/jedi-vim'
+"Plug 'davidhalter/jedi-vim'
 "{{ Autopairs
 " ---> closing XML tags <---
 Plug 'alvan/vim-closetag'
@@ -142,12 +142,13 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
   \ 'branch': 'release/0.x'
   \ }
-"Themes for vim
+""""""""Themes for vim
 Plug 'morhetz/gruvbox'
 "Plug 'drewtempelmeyer/palenight.vim'
 "Plug 'embark-theme/vim', { 'as': 'embark' } " ayo this is actually really nice
 "#Plug 'pineapplegiant/spaceduck' "literally duck this is so cool
 "Plug 'connorholyday/vim-snazzy' "looks clean ash
+Plug 'arcticicestudio/nord-vim'
 Plug 'edersonferreira/dalton-vim'
 "Plug 'ciaranm/inkpot'
 "Plug 'aonemd/kuroi.vim'
@@ -226,7 +227,7 @@ let g:fzf_layout = { 'down': '10' }
 set laststatus=2
 " config for like the contents of the stauts bar
 let g:lightline = {
-      \ 'colorscheme': 'seoul256',
+      \ 'colorscheme': 'nord',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             ['gitbranch', 'readonly', 'filename', 'textonbar','%:p:h' ] ],
@@ -235,7 +236,7 @@ let g:lightline = {
       \              [ 'fileformat', 'filetype'] ]
       \ },
       \ 'component': {
-      \   'textonbar': 'Amongus'
+      \   'textonbar': ' '
       \ },
       \ 'component_function': {
       \   'gitbranch': 'FugitiveHead',
