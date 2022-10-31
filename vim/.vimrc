@@ -103,27 +103,14 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'itchyny/lightline.vim'
-"Plug 'sheerun/vim-polyglot'   "pr sure this is syntax highlighting
-"Plug 'HerringtonDarkholme/yats.vim' " TS Syntax (from ben awad)
-"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-"Plug 'mattn/emmet-vim'
-Plug 'justinmk/vim-sneak' "missing movement in vim (use s{char}{char} to look for stuff)
-"Plug 'tpope/vim-surround' " shortcuts to easily change/delete/add surroundings in pairs
-"Plug 'preservim/nerdtree'
-"Plug 'ryanoasis/vim-devicons'"
+"Plug 'justinmk/vim-sneak' "missing movement in vim (use s{char}{char} to look for stuff)
 Plug 'mhinz/vim-startify'
-"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-"Plug 'Yggdroot/indentLine' "  indent line stuff
 Plug 'ntpeters/vim-better-whitespace'
-"Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vimwiki/vimwiki'
-" Python autocomplete
-"Plug 'davidhalter/jedi-vim'
-"{{ Autopairs
-" ---> closing XML tags <---
 Plug 'alvan/vim-closetag'
+Plug 'ctrlpvim/ctrlp.vim'
 " ---> files on which to activate tags auto-closing <---
   let g:closetag_filenames = '*.html,*.xhtml,*.xml,*.vue,*.phtml,*.js,*.jsx,*.coffee,*.erb'
 " ---> closing braces and brackets <---
@@ -142,8 +129,8 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
   \ 'branch': 'release/0.x'
   \ }
-""""""""Themes for vim
-Plug 'morhetz/gruvbox'
+
+"<-------Themes for vim---------> 
 "Plug 'drewtempelmeyer/palenight.vim'
 "Plug 'embark-theme/vim', { 'as': 'embark' } " ayo this is actually really nice
 "#Plug 'pineapplegiant/spaceduck' "literally duck this is so cool
@@ -154,7 +141,6 @@ Plug 'edersonferreira/dalton-vim'
 "Plug 'aonemd/kuroi.vim'
 "Plug 'liuchengxu/space-vim-dark'
 "Plug 'cormacrelf/vim-colors-github' "github styled colorscheme
-Plug 'tomasr/molokai'
 "Plug 'tomasiser/vim-code-dark'
 "Plug 'ldelossa/vimdark'
 "Plug 'AhmedAbdulrahman/vim-aylin'
@@ -163,6 +149,16 @@ Plug 'andreasvc/vim-256noir' "minimal colorscheme
 "Plug 'nikolvs/vim-sunbather'
 
 call plug#end()
+
+set relativenumber
+
+"============== BASE 16 STUFF ADDED 10-30-22 ============================
+"if exists('$BASE16_THEME')
+"      \ && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
+"    let base16colorspace=256
+"    colorscheme base16-$BASE16_THEME
+"endif
+
 
 "CtrlP config
 let g:ctrlp_map = '<C-p>'
@@ -317,7 +313,8 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 "===========================================================================
 set background=dark
-colorscheme rexim-gruber-vim
+colorscheme nord
+hi Normal ctermbg=NONE guibg=NONE
 " code belows set default for git gutter colors
 highlight GitGutterAdd ctermfg=green
 highlight GitGutterChange ctermfg=yellow
@@ -326,3 +323,10 @@ highlight GitGutterChangeDelete ctermfg=yellow
 
 " terminal 256 colors
 set termguicolors
+" FOR SOME ALACRITTY SHIT
+if exists('+termguicolors')
+  let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
